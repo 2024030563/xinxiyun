@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> 水岸樱 · 产品溯源系统</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+html{
+    scroll-behavior:smooth;
+}
+body{
+    font-family:"Microsoft YaHei", Arial, sans-serif;
+    background:#f4f7f5;
+    color:#333;
+}
+.page{
+    width:100%;
+    min-height:100vh;
+}
+#originPage{
+    display:none;
+}
+.header{
+    background:linear-gradient(135deg,#8b0015,#d7193f);
+    color:#fff;
+    text-align:center;
+    padding:24px 16px 28px;
+}
+.header h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+.header p{
+    font-size:14px;
+    opacity:.95;
+}
+.logo{
+    width:92px;
+    height:92px;
+    margin:18px auto 0;
+    border-radius:50%;
+    background:#fff;
+    padding:6px;
+    box-shadow:0 6px 18px rgba(0,0,0,.18);
+}
+.logo img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:contain;
+}
+.banner{
+    width:100%;
+    min-height:360px;
+    overflow:hidden;
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.banner img{
+    width:min(82%,520px);
+    height:auto;
+    max-height:320px;
+    object-fit:contain;
+    object-position:center center;
+    display:block;
+}
+.container{
+    width:100%;
+    max-width:860px;
+    margin:0 auto;
+    padding:16px;
+}
+.card{
+    background:#fff;
+    margin-bottom:16px;
+    padding:18px;
+    border-radius:16px;
+    box-shadow:0 4px 16px rgba(0,0,0,.08);
+}
+.title{
+    font-size:19px;
+    font-weight:bold;
+    color:#b30024;
+    margin-bottom:12px;
+}
+.card p{
+    font-size:15px;
+    line-height:1.75;
+}
+.product-box{
+    display:flex;
+    gap:16px;
+    align-items:center;
+}
+.product-img{
+    width:120px;
+    height:120px;
+    flex-shrink:0;
+    border-radius:16px;
+    object-fit:cover;
+    object-position:center;
+}
+.product-info{
+    flex:1;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:12px 0;
+}
+.grid img{
+    width:100%;
+    height:110px;
+    border-radius:12px;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+}
+.card-img{
+    width:100%;
+    height:400px;
+    border-radius:14px;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+    margin:10px 0 12px;
+}
+.btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#c9002b,#ff4d6d);
+    color:#fff;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 5px 14px rgba(201,0,43,.28);
+}
+.btn:active{
+    transform:scale(.98);
+}
+.back-btn{
+    display:block;
+    width:calc(100% - 32px);
+    max-width:860px;
+    margin:20px auto 28px;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#b30024;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+}
+.section{
+    background:#fff;
+    margin:0 auto 16px;
+    padding:16px;
+    border-radius:16px;
+    box-shadow:0 4px 16px rgba(0,0,0,.08);
+}
+.section-img{
+    width:100%;
+    height:400px;
+    border-radius:14px;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+    margin-bottom:12px;
+}
+.text-box{
+    min-height:80px;
+    padding:14px;
+    border-radius:12px;
+    background:#fff7f9;
+    border:1px solid #ffd2dc;
+    line-height:1.8;
+    font-size:15px;
+}
+.info-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:8px;
+    overflow:hidden;
+    border-radius:12px;
+}
+.info-table td{
+    padding:10px;
+    border-bottom:1px solid #f0d7dc;
+    font-size:15px;
+}
+.info-table td:first-child{
+    width:34%;
+    color:#b30024;
+    font-weight:bold;
+}
+.footer{
+    text-align:center;
+    padding:24px 12px;
+    color:#888;
+    font-size:13px;
+    line-height:1.7;
+}
+.badge{
+    display:inline-block;
+    margin-top:10px;
+    padding:6px 12px;
+    border-radius:999px;
+    background:#fff1f4;
+    color:#b30024;
+    font-size:13px;
+}
+ .data-box{
+    background:#fff7f9;
+    border:1px solid #ffd2dc;
+    border-radius:14px;
+    padding:16px;
+    margin-top:12px;
+}
+
+.data-item{
+    font-size:16px;
+    line-height:2;
+}
+
+.data-value{
+    color:#b30024;
+    font-weight:bold;
+}
+
+.status{
+    margin-top:10px;
+    font-size:13px;
+    color:#888;
+} 
+@media(max-width:600px){
+    .header h1{
+        font-size:24px;
+    }
+    .banner{
+        min-height:260px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .product-box{
+        align-items:flex-start;
+    }
+    .product-img{
+        width:96px;
+        height:96px;
+    }
+    .grid{
+        grid-template-columns:repeat(3,1fr);
+        gap:8px;
+    }
+    .grid img{
+        height:86px;
+    }
+    .card-img{
+        height:150px;
+    }
+    .section-img{
+        height:180px;
+    }
+}
+</style>
+<link rel="stylesheet" href="/Static/css/Global.css"/><link rel="stylesheet" href="/Web/css/Global.css"/><link rel="stylesheet" href="/Web/css/XYChatGPT.css"/></head>
+
+<body>
+
+<div id="mainPage" class="page">
+    <div class="header">
+        <h1> 水岸樱 · 产品溯源系统</h1>
+        <p>生态樱桃 · 产地直供 · 全流程可追溯</p>
+        <div class="logo">
+            <img src="logo.jpg" alt="樱桃标志">
+        </div>
+    </div>
+
+    <div class="banner">
+        <img src="logo.jpg" alt="樱桃主图">
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="title">📦 产品信息</div>
+            <div class="product-box">
+                <img class="product-img" src="https://images.unsplash.com/photo-1528821154947-1aa3d1b74941?auto=format&fit=crop&w=500&q=80" alt="樱桃产品">
+                <div class="product-info">
+                    <p><b>产品名称：</b>水岸樱生态樱桃</p>
+                    <p><b>产品类型：</b>新鲜水果</p>
+                    <p><b>批次编号：</b>CHERRY20250601</p>
+                    <p><b>采摘时间：</b>2025年6月</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="title">🍒 樱桃展示</div>
+                <img class="card-img" src="https://q6.itc.cn/q_70/images03/20250606/3f0451d8c700440cbf46f1e29fafe265.jpeg" alt="樱桃成品">
+            <p>精选成熟樱桃，果色鲜亮，口感清甜，适合鲜食与礼盒包装。</p>
+        </div>
+
+        <div class="card">
+            <div class="title">🌱 种植环境</div>
+            <img class="card-img" src="https://tse2-mm.cn.bing.net/th/id/OIP-C.apTg1gIvxU5Vhuz1w2fdPgHaE8?w=251&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="生态种植">
+            <p>采用生态化果园管理方式，控制灌溉、施肥、采摘和运输流程，保障果品品质稳定。</p>
+        </div>
+
+        <div class="card">
+            <div class="title">💧 水源与环境监测</div>
+            <img class="card-img" src="https://techchina.nancai.net/2025/0415/f10eb459ced52de.png" alt="自然环境">
+            <p>灌溉水源清洁，果园周边环境良好，定期进行环境与果品质量监测。</p>
+            <p class="badge">✔ 生态种植记录完整</p>
+        </div>
+
+        <div class="card">
+            <div class="title">🔬 检测信息</div>
+            <table class="info-table">
+                <tr>
+                    <td>检测项目</td>
+                    <td>农残检测、外观品质、糖度检测</td>
+                </tr>
+                <tr>
+                    <td>检测结果</td>
+                    <td>符合鲜食水果质量要求</td>
+                </tr>
+                <tr>
+                    <td>追溯状态</td>
+                    <td>可查询、可追踪、可复核</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+    <button class="btn" onclick="showOrigin()">查看产地溯源信息</button>
+</div>
+
+<div class="card">
+    <button class="btn" onclick="showBafa()">查看巴法云实时数据</button>
+</div>
+    </div>
+
+    <div class="footer">
+        生态樱桃产品溯源系统<br>
+        来源可查 · 去向可追 · 质量可控
+    </div>
+</div>
+
+<div id="originPage" class="page">
+    <div class="header">
+        <h1>水岸樱 · 产地溯源信息</h1>
+        <p>产地环境 · 地理位置 · 实景展示</p>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <div class="title">📍 产地位置</div>
+            <img class="section-img" src="ditu.png" alt="产地地图">
+            <div class="text-box">
+                本批次樱桃产自生态果园种植区，产地周边自然环境良好，交通便利，适合鲜果采摘、分拣与冷链运输。
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="title">🏞 产地实景</div>
+            <img class="section-img" src="https://techchina.nancai.net/2025/0415/1afb3939ce9b511.jpeg" alt="产地实景">
+            <div class="text-box">
+                果园区域空气清新，日照充足，昼夜温差适宜，有利于樱桃糖分积累和风味形成。
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="title">🍒 果园信息</div>
+            <img class="section-img" src="https://techchina.nancai.net/2025/0415/548c0736ac5ea29.jpeg" alt="樱桃果园">
+            <table class="info-table">
+                <tr>
+                    <td>种植品类</td>
+                    <td>鲜食樱桃</td>
+                </tr>
+                <tr>
+                    <td>管理方式</td>
+                    <td>生态化管理、分批采摘、统一分拣</td>
+                </tr>
+                <tr>
+                    <td>运输方式</td>
+                    <td>采后分拣包装，冷链或短途直配</td>
+                </tr>
+                <tr>
+                    <td>品质特点</td>
+                    <td>果形饱满，色泽鲜亮，甜度稳定</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="title">🚜 采摘与流通</div>
+            <img class="section-img" src="https://tse3-mm.cn.bing.net/th/id/OIP-C.M9Ddj-YE6JA49qIzjwuqWwAAAA?w=296&h=176&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="樱桃采摘流通">
+            <div class="text-box">
+                樱桃成熟后按批次采摘，经过筛选、称重、包装和出库登记，实现从果园到消费者的完整追溯。
+            </div>
+        </div>
+    </div>
+
+    <button class="back-btn" onclick="showMain()">返回主页面</button>
+</div>
+
+<div id="bafaPage" class="page" style="display:none;">
+    <div class="header">
+        <h1>巴法云实时数据</h1>
+        <p>设备上传数据 · 实时读取 · 自动刷新</p>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <div class="title">📡 实时监测数据</div>
+
+            <div class="data-box">
+                <div class="data-item">最新消息：<span id="bafaMsg" class="data-value">正在读取...</span></div>
+                <div class="data-item">上传时间：<span id="bafaTime" class="data-value">--</span></div>
+                <div class="data-item">Unix时间：<span id="bafaUnix" class="data-value">--</span></div>
+                <div class="status" id="bafaStatus">等待连接巴法云...</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="title">📋 数据说明</div>
+            <div class="text-box">
+                本页面用于显示巴法云设备端上传的最新数据，可用于展示温湿度、水位、pH值、光照、土壤湿度等传感器信息。
+            </div>
+        </div>
+    </div>
+
+    <button class="back-btn" onclick="showMain()">返回主页面</button>
+</div>
+  
+<script>
+const BAFA_UID = "6b1cc3be167c4d599d7ab998ffdc5164";
+const BAFA_TOPIC = "dapeng001";
+const BAFA_TYPE = "3";
+
+let bafaTimer = null;
+
+function showOrigin(){
+    document.getElementById("mainPage").style.display="none";
+    document.getElementById("originPage").style.display="block";
+    document.getElementById("bafaPage").style.display="none";
+    stopBafaAutoRefresh();
+    window.scrollTo(0,0);
+}
+
+function showBafa(){
+    document.getElementById("mainPage").style.display="none";
+    document.getElementById("originPage").style.display="none";
+    document.getElementById("bafaPage").style.display="block";
+    window.scrollTo(0,0);
+
+    getBafaData();
+    startBafaAutoRefresh();
+}
+
+function showMain(){
+    document.getElementById("originPage").style.display="none";
+    document.getElementById("bafaPage").style.display="none";
+    document.getElementById("mainPage").style.display="block";
+    stopBafaAutoRefresh();
+    window.scrollTo(0,0);
+}
+
+function startBafaAutoRefresh(){
+    stopBafaAutoRefresh();
+    bafaTimer = setInterval(getBafaData, 3000);
+}
+
+function stopBafaAutoRefresh(){
+    if(bafaTimer){
+        clearInterval(bafaTimer);
+        bafaTimer = null;
+    }
+}
+
+function getBafaData(){
+    const url = `https://apis.bemfa.com/va/getmsg?uid=${BAFA_UID}&topic=${BAFA_TOPIC}&type=${BAFA_TYPE}&num=1`;
+
+    document.getElementById("bafaStatus").innerText = "正在读取巴法云数据...";
+
+    fetch(url)
+        .then(response => response.json())
+        .then(result => {
+            if(result.code === 0 && result.data && result.data.length > 0){
+                const data = result.data[0];
+
+                document.getElementById("bafaMsg").innerText = data.msg || "--";
+                document.getElementById("bafaTime").innerText = data.time || "--";
+                document.getElementById("bafaUnix").innerText = data.unix || "--";
+                document.getElementById("bafaStatus").innerText = "数据已更新";
+            }else{
+                document.getElementById("bafaStatus").innerText = "暂无数据或读取失败";
+            }
+        })
+        .catch(error => {
+            document.getElementById("bafaStatus").innerText = "连接失败，请检查UID、Topic、Type或网络权限";
+            console.log(error);
+        });
+}
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"7939e04a4baf43c8b86a560f74aac60e","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script src="/Static/js/jquery.js"></script><script src="/Static/js/Global.js"></script><script src="/Web/js/Global.js"></script><script src="/Web/js/XYChatGPT.js"></script></body>
+</html>
